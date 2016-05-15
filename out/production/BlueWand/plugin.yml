@@ -1,0 +1,26 @@
+ name: BlueWand
+ version: 0.1.0
+ description: This plugin allows one to color the environment with a 'wand'
+ # We could place every author in the authors list, but chose not to for illustrative purposes
+ # Also, having an author distinguishes that person as the project lead, and ensures their
+ # name is displayed first
+ author: imattxc
+# website:
+
+ main: edu.gatech.mmccoy37.BlueWand.Main
+ database: false
+# depend: []
+
+ commands:
+   bluewand:
+     description: use a wand to draw on blocks
+     aliases: [bluewand,bw]
+#     permission: bluewand.use
+     usage: |
+       /bluewand on: enable
+       /bluewand off: disable
+       /bluewand <color>: change drawing color
+       /bluewand dist <number>: drawing distance [1 to 100]
+       /bluewand size <number>: drawing size [1 to 10]
+       /bluewand: status
+

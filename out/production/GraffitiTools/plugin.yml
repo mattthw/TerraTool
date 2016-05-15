@@ -1,0 +1,26 @@
+ name: GraffitiTools
+ version: 0.1.0
+ description: This plugin allows one to color the environment with a 'can' of spraypaint
+ # We could place every author in the authors list, but chose not to for illustrative purposes
+ # Also, having an author distinguishes that person as the project lead, and ensures their
+ # name is displayed first
+ author: imattxc
+# website:
+
+ main: edu.gatech.mmccoy37.GraffitiTools.Main
+ database: false
+# depend: []
+
+ commands:
+   graffititools:
+     description: use a can to spraypaint
+     aliases: [graffiti,gt]
+#     permission: bluewand.use
+     usage: |
+       /gt can: get a spraycan
+       /gt [on|off]: enable or disable
+       /gt <color>: change drawing color
+       /gt dist <number>: drawing distance [1 to 100]
+       /gt size <number>: drawing size [1 to 10]
+       /gt status
+
