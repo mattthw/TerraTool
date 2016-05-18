@@ -1,9 +1,9 @@
 package edu.gatech.mmccoy37.GraffitiTools;
 
-import edu.gatech.mmccoy37.GraffitiTools.Commands.BasicCommand;
+import edu.gatech.mmccoy37.GraffitiTools.Commands.CommandParse;
 import edu.gatech.mmccoy37.GraffitiTools.Data.PlayerStates;
-import edu.gatech.mmccoy37.GraffitiTools.Data.Wands;
 import edu.gatech.mmccoy37.GraffitiTools.Listener.Draw;
+import edu.gatech.mmccoy37.GraffitiTools.Objects.VoidMaterials;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -15,8 +15,8 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         super.onEnable();
         PlayerStates.getInstance();
-        Wands.getInstance();
-        this.getCommand("graffititools").setExecutor(new BasicCommand());
+//        VoidMaterials.
+        this.getCommand("graffititools").setExecutor(new CommandParse());
         getServer().getPluginManager().registerEvents(new Draw(), this);
     }
 

@@ -1,7 +1,8 @@
 package edu.gatech.mmccoy37.GraffitiTools.Commands;
 
+import edu.gatech.mmccoy37.GraffitiTools.Brushes.Brush;
 import edu.gatech.mmccoy37.GraffitiTools.Data.PlayerStates;
-import edu.gatech.mmccoy37.GraffitiTools.Data.Wands;
+import edu.gatech.mmccoy37.GraffitiTools.Tools.Tool;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,7 +18,7 @@ import static org.bukkit.Material.STICK;
 /**
  * Created by matt on 5/14/16.
  */
-public class BasicCommand implements CommandExecutor {
+public class CommandParse implements CommandExecutor {
 
     private static final List<String> COLORS = Arrays.asList(
         "RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE", "WHITE", "BLACK", "GRAY"
@@ -29,15 +30,18 @@ public class BasicCommand implements CommandExecutor {
     );
 
     @Override
-    public boolean onCommand(CommandSender p, Command command, String cmd, String[] args) {
-        if (p instanceof Player) {
+    public boolean onCommand(CommandSender sender, Command command, String cmd, String[] args) {
+        if (sender instanceof Player) {
+            Player p = ((Player)sender);
+            Tool tool = PlayerStates.getTool(p);
+            Brush brush = tool.getBrush();
             if (args.length < 1) {
                 //STATUS
-                String col = (Wands.getColor((Player) p) == null)? "WHITE":Wands.getColor((Player)p);
+                String material = brush.getNewMaterial().toString();
                 p.sendMessage(TAG + ChatColor.ITALIC + " Status");
-                p.sendMessage(TAB + " color:    " + ChatColor.YELLOW + col);
-                p.sendMessage(TAB + " size:      " + ChatColor.YELLOW + Wands.getSize((Player)p));
-                p.sendMessage(TAB + " dist:       " + ChatColor.YELLOW + Wands.getDist((Player)p));
+                p.sendMessage(TAB + " color:    " + ChatColor.YELLOW + material);
+                p.sendMessage(TAB + " size:      " + ChatColor.YELLOW + brush.getSize());
+                p.sendMessage(TAB + " dist:       " + ChatColor.YELLOW + tool.getDistance());
                 p.sendMessage(TAB + " enabled: " + ChatColor.YELLOW + PlayerStates.isEnabled((Player) p));
             } else if (args.length == 1) {
                 //ENABLE & DISABLE
@@ -62,7 +66,7 @@ public class BasicCommand implements CommandExecutor {
                             //CHANGE COLOR
                             args[0] = args[0].toUpperCase();
                             if (COLORS.contains(args[0])) {
-                                Wands.setColor((Player) p, args[0]);
+                                //Wands.setColor((Player) p, args[0]);
                                 p.sendMessage(TAG + " color set to: " + args[0]);
                             } else {
                                 p.sendMessage(TAG + " Please use one of the following colors:\n"
@@ -77,11 +81,11 @@ public class BasicCommand implements CommandExecutor {
                 if (PlayerStates.isEnabled((Player) p) && args[0].equalsIgnoreCase("dist")) {
                     try {
                         int num = Integer.parseInt(args[1]);
-                        if (num > 100 || num < 1) {
-                            num = 15;
+                        if (num < 100 && num > 0) {
+                            tool.setDistance(num);
+                        } else {
                             throw new NumberFormatException();
                         }
-                        Wands.setDist((Player)p, num);
                     } catch (NumberFormatException e) {
                         p.sendMessage(TAG + " enter a numer from 1 to 100.");
                         return false;
@@ -90,13 +94,13 @@ public class BasicCommand implements CommandExecutor {
                 } else if (PlayerStates.isEnabled((Player) p) && args[0].equalsIgnoreCase("size")) {
                     try {
                         int num = Integer.parseInt(args[1]);
-                        if (num > 10 || num < 1) {
-                            num = 1;
+                        if (num < brush.MAX_SIZE && num > brush.MIN_SIZE) {
+                            brush.setSize(num);
+                        } else {
                             throw new NumberFormatException();
                         }
-                        Wands.setSize((Player)p, num);
                     } catch (NumberFormatException e) {
-                        p.sendMessage(TAG + " enter a numer from 1 to 10.");
+                        p.sendMessage(TAG + " enter a numer from " + brush.MIN_SIZE + " to " + brush.MAX_SIZE);
                         return false;
                     }
                     p.sendMessage(TAG + " size set to " + ChatColor.YELLOW + args[1]);
