@@ -73,7 +73,7 @@ public class Draw implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if (PlayerStates.isEnabled(player)) {
+        if (PlayerStates.hasPlayer(player)) {
             if (player.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
                 event.setCancelled(true);
             }
