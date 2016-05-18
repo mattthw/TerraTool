@@ -1,7 +1,7 @@
 # GraffitiTools
 Learning the Spigot API
 
-Created a basic brush with customizable options for distance and size.
+Created a basic brush with customizable options for distance, color, and size.
 
 The Bukkit/Spigot API allows this to reach large distances within reason to the viewers line of sight. The brush is in the shape of a ball. It loops through the blocks in a cube based on the desired size, storing all which fall within a radius from the current block to the originally targeted block. Colors are customizable to an extent. It would be pretty simple to allow it to simply take an input for the block id number as a paint color, and even a block id to replace.
 
