@@ -21,51 +21,22 @@ public abstract class Brush {
     public static final int MIN_SIZE = 1;
     public static final int MAX_SIZE = 30;
 
-    public void setSize(int s) {
-        this.size = s;
-    }
+    public abstract void setSize(int s);
 
-    public void setNewMaterial(Material mat) {
-        this.newMaterial = mat;
-    }
+    public abstract void setNewMaterial(Material mat);
 
-    public void setData(byte b) {
-        this.data = b;
-    }
+    public abstract void setData(byte b);
+    public abstract int getSize();
 
-    public int getSize() {
-        return size;
-    }
+    public abstract Material getNewMaterial();
 
-    public Material getNewMaterial() {
-        return newMaterial;
-    }
-
-    public byte getData() {
-        return this.data;
-    }
+    public abstract byte getData();
 
 
-    public void regionAdd(Location location) {
-        locs.add(location);
-    }
-    public ArrayList<Location> getRegion() {
-        return locs;
-    }
+    public abstract void regionAdd(Location location);
+    public abstract ArrayList<Location> getRegion();
 
     public abstract void gather(Block targetBlock);
 
-    public void replace() {
-        for (Location loc: getRegion()) {
-            if (loc != null) {
-                Block block = loc.getBlock();
-                block.setType(this.getNewMaterial());
-                //if has metadata then set metadata
-                if (this.getData() > 0) {
-                    block.setData(this.getData());
-                }
-            }
-
-        }
-    }
+    public abstract void replace();
 }

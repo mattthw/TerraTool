@@ -16,6 +16,51 @@ public class DefaultBrush extends Brush {
     private byte data = (byte)-1;
     private ArrayList<Location> locs = new ArrayList<>();
 
+    public void setSize(int s) {
+        this.size = s;
+    }
+
+    public void setNewMaterial(Material mat) {
+        this.newMaterial = mat;
+    }
+
+    public void setData(byte b) {
+        this.data = b;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Material getNewMaterial() {
+        return newMaterial;
+    }
+
+    public byte getData() {
+        return this.data;
+    }
+
+
+    public void regionAdd(Location location) {
+        locs.add(location);
+    }
+    public ArrayList<Location> getRegion() {
+        return locs;
+    }
+
+    public void replace() {
+        for (Location loc: getRegion()) {
+            if (loc != null) {
+                Block block = loc.getBlock();
+                block.setType(this.getNewMaterial());
+                //if has metadata then set metadata
+                if (this.getData() > 0) {
+                    block.setData(this.getData());
+                }
+            }
+
+        }
+    }
 
     public void gather(Block targetBlock) {
         Location targetLocation = targetBlock.getLocation();

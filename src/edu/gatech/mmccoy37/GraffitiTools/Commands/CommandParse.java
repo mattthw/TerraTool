@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -34,6 +35,7 @@ public class CommandParse implements CommandExecutor {
         if (sender instanceof Player) {
             Player p = ((Player)sender);
             if (PlayerStates.hasPlayer(p)) {
+                Log.info(PlayerStates.getString());
                 Tool tool = PlayerStates.getTool(p);
                 Brush brush = tool.getBrush();
     //STATE: ENABLED
@@ -123,7 +125,7 @@ public class CommandParse implements CommandExecutor {
                     p.sendMessage(TAG + ChatColor.ITALIC + " Status");
                     p.sendMessage(TAB + " enabled: " + ChatColor.YELLOW + PlayerStates.hasPlayer(p));
                 } else if (args.length == 1) {
-            //disable
+            //enable
                     if (args[0].equalsIgnoreCase("on")) {
                         PlayerStates.add(p);
                         p.sendMessage(TAG + " spraying toggled " + ChatColor.GREEN + "on.");

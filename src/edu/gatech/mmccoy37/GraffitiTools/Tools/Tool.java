@@ -9,27 +9,16 @@ import org.bukkit.Material;
  */
 public abstract class Tool {
 
-    private int distance;
-    private Material item;
-    private Brush brush = new DefaultBrush();
 
-    public void setWandMaterial(Material item) {
-        this.item = item;
-    }
+    public abstract void setWandMaterial(Material item);
 
-    public Material getWandMaterial() {
-        return this.item;
-    }
+    public abstract Material getWandMaterial();
 
-    public void setDistance(int dist) {
-        this.distance = dist;
-    }
+    public abstract void setDistance(int dist);
 
-    public int getDistance() {
-        return this.distance;
-    }
+    public abstract int getDistance();
 
-    public Brush getBrush() {
-        return brush;
-    }
+    public abstract Brush getBrush();
+
+    public abstract void setBrush(Brush brush);
 }
