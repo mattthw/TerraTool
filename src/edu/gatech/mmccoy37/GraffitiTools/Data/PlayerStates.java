@@ -15,7 +15,7 @@ import java.util.Map;
  */
 
 public class PlayerStates {
-    private static ArrayList<Player> players;
+    private static ArrayList<Player> players = new ArrayList<>();
     private static Map<Player, Tool> activePlayers;
     private static PlayerStates ourInstance = new PlayerStates();
 
@@ -24,29 +24,6 @@ public class PlayerStates {
     }
 
     private PlayerStates() {
-    }
-
-    //these will be removed
-
-    public static void enable(Player p) {
-        if (players == null)
-            players = new ArrayList<>();
-        players.add(p);
-        Log.info(players.toString());
-    }
-
-    public static void disable(Player p) {
-        if (players == null)
-            players = new ArrayList<>();
-        players.remove(p);
-        Log.info(players.toString());
-    }
-
-    public static boolean isEnabled(Player p) {
-        if (p == null || players == null) {
-            return false;
-        }
-        return players.contains(p);
     }
 
 
@@ -58,6 +35,12 @@ public class PlayerStates {
         activePlayers.putIfAbsent(player, null);
     }
 
+    public static void remove(Player player) {
+        if (activePlayers != null) {
+            activePlayers.remove(player);
+        }
+    }
+
     public static void setTool(Player player, Tool tool) {
         if (activePlayers.get(player) == null) {
             add(player);
@@ -66,7 +49,8 @@ public class PlayerStates {
     }
 
     public static boolean hasPlayer(Player player) {
-        if (activePlayers.get(player) == null) {
+
+        if (activePlayers == null || activePlayers.get(player) == null) {
             return false;
         } else {
             return true;
@@ -74,6 +58,7 @@ public class PlayerStates {
     }
 
     public static Tool getTool(Player player) {
+
         return activePlayers.getOrDefault(player, (Tool) new DefaultTool());
     }
 }
