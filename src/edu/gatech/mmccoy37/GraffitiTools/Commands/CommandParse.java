@@ -34,55 +34,59 @@ public class CommandParse implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String cmd, String[] args) {
         if (sender instanceof Player) {
             Player p = ((Player)sender);
+
+
+    //STATE: ENABLED
             if (PlayerStates.hasPlayer(p)) {
                 Log.info(PlayerStates.getString());
                 Tool tool = PlayerStates.getTool(p);
                 Brush brush = tool.getBrush();
-    //STATE: ENABLED
+
+
+
+
                 if (args.length == 0) {
-                //status
+                    //status
                     String material = brush.getNewMaterial().toString();
                     p.sendMessage(TAG + ChatColor.ITALIC + " Status");
                     p.sendMessage(TAB + " color:    " + ChatColor.YELLOW + material);
                     p.sendMessage(TAB + " size:      " + ChatColor.YELLOW + brush.getSize());
                     p.sendMessage(TAB + " dist:       " + ChatColor.YELLOW + tool.getDistance());
                     p.sendMessage(TAB + " enabled: " + ChatColor.YELLOW + PlayerStates.hasPlayer(p));
+
+
+
                 } else if (args.length == 1) {
-                //disable
+                    //disable
                     if (args[0].equalsIgnoreCase("on")) {
                         PlayerStates.add(p);
                         p.sendMessage(TAG + " spraying toggled " + ChatColor.GREEN + "on.");
                     } else if (args[0].equalsIgnoreCase("off")) {
                         PlayerStates.remove(p);
                         p.sendMessage(TAG + " spraying toggled " + ChatColor.RED + "off.");
-                    } else {
-                //alt actions
-                        if (PlayerStates.hasPlayer(p)) {
-                    //give wand
-                            if (args[0].equalsIgnoreCase("can")) {
-                                if (p.getInventory().getItemInMainHand().getTypeId() == 0) {
-                                    p.getInventory().setItemInMainHand(new ItemStack(STICK, 1));
-                                } else {
-                                    p.sendMessage(TAG + " please empty your hand first!");
-                                }
-                            } else {
-                    //change color
-                                args[0] = args[0].toUpperCase();
-                                if (COLORS.contains(args[0])) {
-                                    //Wands.setColor(p, args[0]);
-                                    p.sendMessage(TAG + " color set to: " + args[0]);
-                                } else {
-                                    p.sendMessage(TAG + " Please use one of the following colors:\n"
-                                            + COLORS.toString().replace("[", "").replace("]", ""));
-                                }
-                            }
+                    } else if (args[0].equalsIgnoreCase("can")) {
+                        //give wand
+                        if (p.getInventory().getItemInMainHand().getTypeId() == 0) {
+                            p.getInventory().setItemInMainHand(new ItemStack(STICK, 1));
                         } else {
-                    //error
-                            p.sendMessage(TAG + " unknown action. Check spelling.");
+                            p.sendMessage(TAG + " please empty your hand first!");
+                        }
+                    } else {
+                        //change color
+                        args[0] = args[0].toUpperCase();
+                        if (COLORS.contains(args[0])) {
+                            //Wands.setColor(p, args[0]);
+                            p.sendMessage(TAG + " color set to: " + args[0]);
+                        } else {
+                            p.sendMessage(TAG + " Please use one of the following colors:\n"
+                                    + COLORS.toString().replace("[", "").replace("]", ""));
                         }
                     }
+
+
+
                 } else if (args.length == 2) {
-                //distance
+                    //distance
                     if (args[0].equalsIgnoreCase("dist")) {
                         try {
                             int num = Integer.parseInt(args[1]);
@@ -97,7 +101,7 @@ public class CommandParse implements CommandExecutor {
                         }
                         p.sendMessage(TAG + " ditance set to " + ChatColor.YELLOW + args[1]);
                     } else if (args[0].equalsIgnoreCase("size")) {
-                //size
+                        //size
                         try {
                             int num = Integer.parseInt(args[1]);
                             if (num < brush.MAX_SIZE && num > brush.MIN_SIZE) {
@@ -111,21 +115,29 @@ public class CommandParse implements CommandExecutor {
                         }
                         p.sendMessage(TAG + " size set to " + ChatColor.YELLOW + args[1]);
                     } else {
-                //spelling error
+                        //spelling error
                         p.sendMessage(TAG + " unknown action. Check spelling.");
                     }
                 } else if (args.length > 2) {
-        //ARGS ERROR
+                    //ARGS ERROR
                     p.sendMessage(TAG + " unknown action. too many arguments.");
                 }
-            } else {
+
+
+
+
+
+
     //STATE: DISABLED
-                if (args.length < 1) {
-            //alert disabled
+            } else {
+            //status
+                if (args.length == 0) {
                     p.sendMessage(TAG + ChatColor.ITALIC + " Status");
                     p.sendMessage(TAB + " enabled: " + ChatColor.YELLOW + PlayerStates.hasPlayer(p));
-                } else if (args.length == 1) {
+
+
             //enable
+                } else if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("on")) {
                         PlayerStates.add(p);
                         p.sendMessage(TAG + " spraying toggled " + ChatColor.GREEN + "on.");
@@ -133,9 +145,13 @@ public class CommandParse implements CommandExecutor {
                         PlayerStates.remove(p);
                         p.sendMessage(TAG + " spraying toggled " + ChatColor.RED + "off.");
                     } else {
-            //alert disabled
                         p.sendMessage(TAG + " your can must be " + ChatColor.GREEN + "enabled" + ChatColor.RESET + " to do that.");
                     }
+
+
+                } else {
+            //error msg
+                    p.sendMessage(TAG + " invalid arguments length.");
                 }
             }
         }
