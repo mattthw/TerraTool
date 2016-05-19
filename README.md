@@ -15,3 +15,24 @@ Commands:
 /graffiti dist <dist> - distance in blocks from 1 to 100. (a brush of dist 100 with size 10 would edit a block up to 110 blocks away)
 /graffiti <color> - change brush color
 ```
+#TODO
+- Brushes:
+  - ball brush
+  - square brush
+  - point brush
+- Tools:
+  - Designate different brushes for fill replace and delete
+  - fill tool
+  - replace tool
+  - hollow tool
+  - draw tool
+    - with interpolation option for best fit line. This should help allow users to draw a clean line without missing blocks due to the client target landing on a different targetblock faster than the server can keep track
+- Clean up command system
+  - more advanced argument implementation pls.
+  - ex: '/gt set nmid wool:red'
+  - ex: '/gt set tool fill'
+  - ex: '/gt set interpolate on'
+  - ex: '/gt help', '/gt tool help', '/gt brush help'
+- Record 'x' amount of changes
+- Implement undo using that record of changes
+- Better help system
