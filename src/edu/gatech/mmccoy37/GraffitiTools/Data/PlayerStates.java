@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 public class PlayerStates {
-    private static Map<Player, Tool> activePlayers;
+    private static Map<Player, PlayerData> activePlayers;
     private static PlayerStates ourInstance = new PlayerStates();
 
     public static PlayerStates getInstance() {
@@ -33,7 +33,7 @@ public class PlayerStates {
     public static void add(Player player) {
         if (activePlayers == null)
             activePlayers = new HashMap<>();
-        activePlayers.putIfAbsent(player, new DefaultTool());
+        activePlayers.putIfAbsent(player, new PlayerData());
     }
 
     public static void remove(Player player) {
@@ -42,12 +42,12 @@ public class PlayerStates {
         }
     }
 
-    public static void setTool(Player player, Tool tool) {
-        if (activePlayers.get(player) == null) {
-            add(player);
-        }
-        activePlayers.put(player, tool);
-    }
+//    public static void setTool(Player player, Tool tool) {
+//        if (activePlayers.get(player) == null) {
+//            add(player);
+//        }
+//        activePlayers.put(player, tool);
+//    }
 
     public static boolean hasPlayer(Player player) {
 
@@ -58,15 +58,8 @@ public class PlayerStates {
         }
     }
 
-    public static Tool getTool(Player player) throws NullPointerException {
-        if (activePlayers == null) {
-            Log.error("error getting tool for " + player.getPlayerListName());
-            throw new NullPointerException("active players not instantiated");
-        }
-        DefaultBrush brush = new DefaultBrush();
-        DefaultTool tool = new DefaultTool();
-        tool.setBrush(brush);
-        return activePlayers.getOrDefault(player, tool);
+    public static PlayerData getData(Player player) {
+        return activePlayers.get(player);
     }
 
     public static String getString() {

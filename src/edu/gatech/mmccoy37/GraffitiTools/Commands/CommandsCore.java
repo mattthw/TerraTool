@@ -1,12 +1,9 @@
 package edu.gatech.mmccoy37.GraffitiTools.Commands;
 
 import edu.gatech.mmccoy37.GraffitiTools.Brushes.Brush;
-import edu.gatech.mmccoy37.GraffitiTools.Data.BlockData;
 import edu.gatech.mmccoy37.GraffitiTools.Data.PlayerStates;
 import edu.gatech.mmccoy37.GraffitiTools.Tools.Tool;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,16 +12,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
 
 import static org.bukkit.Material.STICK;
 
 /**
  * Created by matt on 5/14/16.
  */
-public class CommandParse implements CommandExecutor {
+public class CommandsCore implements CommandExecutor {
 
     private static final List<String> COLORS = Arrays.asList(
             "RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE", "WHITE", "BLACK", "GRAY"
@@ -119,21 +114,6 @@ public class CommandParse implements CommandExecutor {
                             return false;
                         }
                         p.sendMessage(TAG + " size set to " + ChatColor.YELLOW + args[1]);
-                    } else if (args[0].equalsIgnoreCase("undo")) {
-                        //undo
-                        try {
-                            int num = Integer.parseInt(args[1]);
-                            if (num < 100 && num > 0) {
-                                undo(p, num);
-                            } else {
-                                throw new NumberFormatException();
-                            }
-                        } catch (NumberFormatException e) {
-                            p.sendMessage(TAG + " enter a number from 1 to 10.");
-                            return false;
-                        }
-                        p.sendMessage(TAG + " performed undo for past actions " + ChatColor.YELLOW + args[1]);
-
                     } else {
                         //spelling error
                         p.sendMessage(TAG + " unknown action. Check spelling.");
@@ -177,20 +157,4 @@ public class CommandParse implements CommandExecutor {
         }
         return true;
     }
-    private void undo(Player p, int count) {
-        Stack<HashMap<Location, BlockData>> temp =
-                PlayerStates.getData(p).changes;
-        for (int i = 0; i < count && !temp.isEmpty(); i++) {
-            HashMap<Location, BlockData> change = temp.pop();
-            for (Location loc: change.keySet()) {
-                if (loc != null) {
-                    Block block = loc.getBlock();
-                    block.setType(change.get(loc).getMaterial());
-                    block.setData(change.get(loc).getData());
-                }
-
-            }
-        }
-    }
-
 }

@@ -51,20 +51,16 @@ public class Draw implements Listener {
         if (PlayerStates.hasPlayer(player)) {
 
             //create tool abd brush to use
-            Tool myTool = PlayerStates.getTool(player);
-            Brush myBrush = myTool.getBrush();
-            Block targetBlock = player.getTargetBlock(VOID_BLOCKS, myTool.getDistance());
 
-            if (player.getInventory().getItemInMainHand().getType().equals(myTool.getWandMaterial())) {
+            Tool tool = PlayerStates.getData(player).getTool();
+            Block targetBlock = player.getTargetBlock(VOID_BLOCKS, tool.getDistance());
+
+            if (player.getInventory().getItemInMainHand().getType().equals(tool.getWandMaterial())) {
                 //return if targetblock too far away
-                if (targetBlock.getLocation().distance(player.getLocation()) > myTool.getDistance()) {
+                if (targetBlock.getLocation().distance(player.getLocation()) > tool.getDistance()) {
                     return;
                 }
-                //get area being altered
-                myBrush.gather(targetBlock);
-                //change area
-                myBrush.replace();
-
+                tool.action(player, targetBlock);
             }
         }
 
