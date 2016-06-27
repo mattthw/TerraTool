@@ -1,10 +1,10 @@
 package edu.gatech.mmccoy37.GraffitiTools.Tools;
 
 import edu.gatech.mmccoy37.GraffitiTools.Brushes.Brush;
-import edu.gatech.mmccoy37.GraffitiTools.Brushes.DefaultBrush;
+import edu.gatech.mmccoy37.GraffitiTools.Brushes.BallBrush;
 import edu.gatech.mmccoy37.GraffitiTools.Data.BlockData;
 import edu.gatech.mmccoy37.GraffitiTools.Data.PlayerStates;
-import edu.gatech.mmccoy37.GraffitiTools.Modifiers.DefaultModifier;
+import edu.gatech.mmccoy37.GraffitiTools.Modifiers.PlaceMod;
 import edu.gatech.mmccoy37.GraffitiTools.Modifiers.Modifier;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -17,11 +17,11 @@ import java.util.Stack;
 /**
  * Created by matt on 5/18/16.
  */
-public class DefaultTool extends Tool{
-    private int distance = 30;
+public class DefaultTool extends Tool {
+    private int distance = 100;
     private Material item = Material.STICK;
-    private Brush brush = new DefaultBrush();
-    private Modifier mod = new DefaultModifier();
+    private Brush brush = new BallBrush();
+    private Modifier mod = new PlaceMod();
     private BlockData bOld;
     private BlockData bNew = new BlockData(Material.STONE, (byte)0);
 
@@ -76,7 +76,7 @@ public class DefaultTool extends Tool{
         Stack<HashMap<Location, BlockData>> temp =
                 PlayerStates.getData(player).changes;
         temp.push(getBrush().getTargetSet(target));
-        getModifier().modifyTargetSet(temp.peek(), getBlockNew());
+        getModifier().modifyTargetSet(temp.peek(), this);
         return true;
     }
 }

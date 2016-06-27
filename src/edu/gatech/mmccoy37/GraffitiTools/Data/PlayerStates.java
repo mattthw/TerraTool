@@ -1,14 +1,7 @@
 package edu.gatech.mmccoy37.GraffitiTools.Data;
 
-import edu.gatech.mmccoy37.GraffitiTools.Brushes.Brush;
-import edu.gatech.mmccoy37.GraffitiTools.Brushes.DefaultBrush;
-import edu.gatech.mmccoy37.GraffitiTools.Tools.DefaultTool;
-import edu.gatech.mmccoy37.GraffitiTools.Tools.Tool;
-import net.minecraft.server.v1_9_R1.BlockPurpurSlab;
-import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

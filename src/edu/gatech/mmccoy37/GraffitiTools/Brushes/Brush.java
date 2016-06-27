@@ -29,4 +29,6 @@ public abstract class Brush {
 
     public abstract HashMap<Location, BlockData> getTargetSet(Block targetBlock);
 
+    public abstract String getName();
+
 }

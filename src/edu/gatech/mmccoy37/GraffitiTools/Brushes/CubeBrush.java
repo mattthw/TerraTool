@@ -2,16 +2,14 @@ package edu.gatech.mmccoy37.GraffitiTools.Brushes;
 
 import edu.gatech.mmccoy37.GraffitiTools.Data.BlockData;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by matt on 5/18/16.
  */
-public class DefaultBrush extends Brush {
+public class CubeBrush extends Brush {
 
     private int size = 1;
 
@@ -59,13 +57,13 @@ public class DefaultBrush extends Brush {
                 }
             }
         } else {
-            int radius = (int)(size/2) + 1;
+            int radius = size/2 + 1;
             //GET CUBE OF BLOCKS AROUND TARGET BLOCK
             for (int x = targetLocation.getBlockX() - radius; x < targetLocation.getBlockX() + radius; x++) {
                 for (int y = targetLocation.getBlockY() - radius; y < targetLocation.getBlockY() + radius; y++) {
                     for (int z = targetLocation.getBlockZ() - radius; z < targetLocation.getBlockZ() + radius; z++) {
                         Location loc = new Location(target.getWorld(), (double)x, (double)y, (double)z);
-                        if (target.getType().isBlock() && targetLocation.distance(loc) <= (size/2) ) {
+                        if (target.getType().isBlock()) {
                             temp.put(loc, new BlockData(loc.getBlock()));
                         }
                     }
@@ -73,6 +71,10 @@ public class DefaultBrush extends Brush {
             }
         }
         return temp;
+    }
+
+    public String getName() {
+        return "cube";
     }
 
 }

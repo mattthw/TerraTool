@@ -1,9 +1,6 @@
 package edu.gatech.mmccoy37.GraffitiTools.Listener;
 
-import edu.gatech.mmccoy37.GraffitiTools.Brushes.Brush;
-import edu.gatech.mmccoy37.GraffitiTools.Brushes.DefaultBrush;
 import edu.gatech.mmccoy37.GraffitiTools.Data.PlayerStates;
-import edu.gatech.mmccoy37.GraffitiTools.Tools.DefaultTool;
 import edu.gatech.mmccoy37.GraffitiTools.Tools.Tool;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;

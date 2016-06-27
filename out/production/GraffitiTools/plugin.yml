@@ -14,14 +14,17 @@
  commands:
    graffititools:
      description: use a can to spraypaint
-     aliases: [graffiti,gt]
-#     permission: bluewand.use
+     aliases: [graffiti,gt,;]
+     permission: graffititools.use
      usage: |
-       /gt can: get a spraycan
-       /gt [on|off]: enable or disable
-       /gt <color>: change drawing color
-       /gt dist <number>: drawing distance [1 to 100]
-       /gt size <number>: drawing size [1 to 10]
-       /gt status
+       /gt on\off
+       /gt size <number>
+       /gt tool <item name>
+       /gt brush <name>
+       /gt mod <modifier>
+       /gt place <block type>
+       /gt replace <old block type> OR <old block type> <new block type>
+       /gt undo
+
 
 
