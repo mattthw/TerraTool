@@ -1,30 +1,30 @@
- name: GraffitiTools
- version: 0.1.0
- description: This plugin allows one to color the environment with a 'can' of spraypaint
+ name: TerraTool
+ version: 0.2.0
+ description: This plugin allows one terraform with a variety of tools
  # We could place every author in the authors list, but chose not to for illustrative purposes
  # Also, having an author distinguishes that person as the project lead, and ensures their
  # name is displayed first
  author: imattxc
-# website:
+ website: https://github.com/mmccoy37/GraffitiTools
 
- main: edu.gatech.mmccoy37.GraffitiTools.Main
+ main: edu.gatech.mmccoy37.TerraTool.Main
  database: false
 # depend: []
 
  commands:
-   graffititools:
-     description: use a can to spraypaint
-     aliases: [graffiti,gt,;]
-     permission: graffititools.use
+   terratool:
+     description: change tool settings
+     aliases: [t,;]
+     permission: terratool.use
      usage: |
-       /gt on\off
-       /gt size <number>
-       /gt tool <item name>
-       /gt brush <name>
-       /gt mod <modifier>
-       /gt place <block type>
-       /gt replace <old block type> OR <old block type> <new block type>
-       /gt undo
+       /t on\off
+       /t size <number>
+       /t tool <item name>
+       /t brush <name>
+       /t mod <modifier>
+       /t place <block type>
+       /t replace <old block type> OR <old block type> <new block type>
+       /t undo <times>
 
 
 
