@@ -76,7 +76,10 @@ public class DefaultTool extends Tool {
         Stack<HashMap<Location, BlockData>> temp =
                 PlayerStates.getData(player).changes;
         temp.push(getBrush().getTargetSet(target));
-        getModifier().modifyTargetSet(temp.peek(), this);
+        if (!getBrush().modifyTargetSet(temp.peek())) {
+            getModifier().modifyTargetSet(temp.peek(), this);
+        }
+
         return true;
     }
 }

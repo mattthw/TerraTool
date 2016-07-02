@@ -39,4 +39,8 @@ public abstract class Tool {
 
     public abstract boolean action(Player player, Block target);
 
+    public String toString() {
+        return ("size " + getBrush().getSize() + " " + getBrush().getName() + " brush\n"
+                + "old block: ");
+    }
 }

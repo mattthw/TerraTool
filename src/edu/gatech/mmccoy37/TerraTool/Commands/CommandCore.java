@@ -154,6 +154,12 @@ public class CommandCore implements CommandExecutor {
                                 p.sendMessage(TAG + " could not find material " + args[1]);
                             }
                             break;
+                        case ("b"):
+                        case ("brush"):
+                            if (!CommandBrush.setBrush(p, args[1], args)) {
+                                p.sendMessage(TAG + " could not find brush " + args[1]);
+                            }
+                            break;
                         default:
                             p.sendMessage(TAG + " unknown action. too many arguments.");
                             break;
