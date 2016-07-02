@@ -2,7 +2,7 @@ package edu.gatech.mmccoy37.TerraTool;
 
 import edu.gatech.mmccoy37.TerraTool.Commands.CommandCore;
 import edu.gatech.mmccoy37.TerraTool.Data.PlayerStates;
-import edu.gatech.mmccoy37.TerraTool.Listener.Draw;
+import edu.gatech.mmccoy37.TerraTool.Listener.TerraEventListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -17,7 +17,7 @@ public class Main extends JavaPlugin {
         PlayerStates.getInstance();
 //        VoidMaterials.
         this.getCommand("terratool").setExecutor(new CommandCore());
-        getServer().getPluginManager().registerEvents(new Draw(), this);
+        getServer().getPluginManager().registerEvents(new TerraEventListener(), this);
     }
 
     @Override

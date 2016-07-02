@@ -1,8 +1,6 @@
 package edu.gatech.mmccoy37.TerraTool.Commands;
 
-import edu.gatech.mmccoy37.TerraTool.Tools.Brushes.Brush;
-import edu.gatech.mmccoy37.TerraTool.Tools.Brushes.CubeBrush;
-import edu.gatech.mmccoy37.TerraTool.Tools.Brushes.BallBrush;
+import edu.gatech.mmccoy37.TerraTool.Tools.Brushes.*;
 import edu.gatech.mmccoy37.TerraTool.Data.PlayerStates;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -31,9 +29,23 @@ public class CommandBrush {
                     newBrush = new CubeBrush();
                 }
                 break;
+            case ("disc"):
+                if (oldBrush instanceof DiscBrush) {
+                    return true;
+                } else {
+                    newBrush = new DiscBrush();
+                }
+                break;
+            case ("plane"):
+                if (oldBrush instanceof PlaneBrush) {
+                    return true;
+                } else {
+                    newBrush = new PlaneBrush();
+                }
+                break;
             case ("help"):
                 p.sendMessage(CommandCore.TAG + " brush list:");
-                p.sendMessage(CommandCore.TAB + "ball, cube");
+                p.sendMessage(CommandCore.TAB + "ball, disc, cube, plane, " + ChatColor.GRAY + "smooth");
                 return true;
             default:
                 return false;

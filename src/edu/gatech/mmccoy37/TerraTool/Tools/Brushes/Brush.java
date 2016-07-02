@@ -13,7 +13,7 @@ public abstract class Brush {
 
     private int size;
     public static final int MIN_SIZE = 1;
-    public static final int MAX_SIZE = 30;
+    public static final int MAX_SIZE = 50;
     public static final boolean ALLOW_MODIFIERS = true;
 
     public abstract void setSize(int s);

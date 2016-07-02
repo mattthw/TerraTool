@@ -24,8 +24,8 @@ import java.util.Stack;
  */
 public class CommandCore implements CommandExecutor {
 
-    static final String TAG = (ChatColor.DARK_PURPLE + Main.PLUGIN_NAME + ChatColor.YELLOW + ":" + ChatColor.RESET);
-    static final String TAB = "    ";
+    public static final String TAG = (ChatColor.DARK_PURPLE + Main.PLUGIN_NAME + ChatColor.YELLOW + ":" + ChatColor.RESET);
+    public static final String TAB = "    ";
 
 
     @Override
@@ -74,11 +74,13 @@ public class CommandCore implements CommandExecutor {
                         case ("place"):
                             CommandReplace.replace(p, tool, "help");
                             break;
+                        case ("r"):
                         case ("replace"):
                             CommandReplace.replace(p, tool, "help");
                             break;
                         case ("reload"):
                             break;
+                        case ("u"):
                         case ("undo"):
                             undo(p, 1);
                             p.sendMessage(TAG + " performed undo for last action");
@@ -125,6 +127,7 @@ public class CommandCore implements CommandExecutor {
                         case ("size"):
                             setSize(p, brush, args[1]);
                             break;
+                        case ("u"):
                         case ("undo"):
                             try {
                                 int num = Integer.parseInt(args[1]);
@@ -145,6 +148,7 @@ public class CommandCore implements CommandExecutor {
                     }
                 } else if (args.length == 3) {
                     switch (args[0]) {
+                        case ("r"):
                         case ("replace"):
                             if (!CommandReplace.replace(p, tool, args[1], args[2])) {
                                 p.sendMessage(TAG + " could not find material " + args[1]);
@@ -202,9 +206,7 @@ public class CommandCore implements CommandExecutor {
     public void status(Player p)  {
 
         p.sendMessage(TAG + ChatColor.ITALIC + " Status");
-        if (PlayerStates.hasPlayer(p)) {
-            p.sendMessage(TAB + " enabled:   " + ChatColor.GREEN + "yes");
-        } else {
+        if (!PlayerStates.hasPlayer(p)) {
             p.sendMessage(TAB + " enabled:   " + ChatColor.RED + "no");
             return;
         }
@@ -215,12 +217,16 @@ public class CommandCore implements CommandExecutor {
         Modifier mod = pd.getTool().getModifier();
         String newMat = tool.getBlockNew().getMaterial().name();
 
-        p.sendMessage(TAB + " size:        " + ChatColor.GRAY + brush.getSize());
-        p.sendMessage(TAB + " brush:     " + ChatColor.GRAY + brush.getName());
-        p.sendMessage(TAB + " modifier:   " + ChatColor.GRAY + mod.getName());
+        p.sendMessage(TAB + " size " + ChatColor.YELLOW + brush.getSize() + ChatColor.RESET + " "
+                + ChatColor.YELLOW + brush.getName().toUpperCase() + " BRUSH" + ChatColor.RESET + " with modifier '"
+                + ChatColor.YELLOW + mod.getName().toUpperCase() + ChatColor.RESET + "'.");
+        //p.sendMessage(TAB + "old material: " + ChatColor.BLUE + tool.getBlockOld().getMaterial().name()
+        //    + ChatColor.RESET + " new material: " + ChatColor.AQUA + tool.getBlockNew().getMaterial().name());
         if (tool.getBlockOld() != null) {
             String oldMat = tool.getBlockOld().getMaterial().name();
             p.sendMessage(TAB + " block old: " + ChatColor.GRAY + oldMat.toLowerCase());
+        } else {
+            p.sendMessage(TAB + " block old: " + ChatColor.GRAY + "N/A");
         }
         p.sendMessage(TAB + " block new: " + ChatColor.GRAY + newMat.toLowerCase());
     }

@@ -1,7 +1,9 @@
 package edu.gatech.mmccoy37.TerraTool.Listener;
 
+import edu.gatech.mmccoy37.TerraTool.Commands.CommandCore;
 import edu.gatech.mmccoy37.TerraTool.Data.PlayerStates;
 import edu.gatech.mmccoy37.TerraTool.Tools.Tool;
+import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 
 import java.util.*;
 
@@ -19,11 +22,11 @@ import static edu.gatech.mmccoy37.TerraTool.Data.VoidMaterials.VOID_BLOCKS;
 /**
  * Created by matt on 5/14/16.
  */
-public class Draw implements Listener {
+public class TerraEventListener implements Listener {
 
     private static Map<String, DyeColor> CONVERSION;
 
-    public Draw() {
+    public TerraEventListener() {
         super();
         createColors();
     }
@@ -61,6 +64,19 @@ public class Draw implements Listener {
             }
         }
 
+    }
+
+    @EventHandler
+    public void onPlayerItemHold(PlayerItemHeldEvent event) {
+        Player player = event.getPlayer();
+        if (PlayerStates.hasPlayer(player)) {
+            Tool tool = PlayerStates.getData(player).getTool();
+            Material[] wands = {PlayerStates.getData(player).getTool().getWandMaterial()};
+            if (player.getInventory().getItemInMainHand().getType().equals(wands[0])) {
+                player.sendMessage(CommandCore.TAG + " " + ChatColor.GREEN + tool.getBrush().getName()
+                    + ChatColor.RESET + " selected.");
+            }
+        }
     }
 
     @EventHandler
